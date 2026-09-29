@@ -182,7 +182,7 @@ const getRouteJsonLd = (route) => {
 };
 
 // Generate head HTML with SEO tags
-const generateHeadHTML = (seoData, route) => {
+const generateHeadHTML = (seoData, route, applicationScripts) => {
   const jsonLd = getRouteJsonLd(route);
   
   return `
@@ -214,6 +214,9 @@ const generateHeadHTML = (seoData, route) => {
     
     <!-- JSON-LD -->
     ${jsonLd.map(schema => `<script type="application/ld+json">${JSON.stringify(schema)}</script>`).join('\n    ')}
+
+    <!-- Application bundle emitted by Vite -->
+    ${applicationScripts}
   `;
 };
 
@@ -229,6 +232,17 @@ const injectMetaTags = () => {
   
   const sourceHTML = fs.readFileSync(SOURCE_HTML, 'utf-8');
   console.log(`✅ Read source HTML from ${SOURCE_HTML}`);
+
+  // Vite emits the React entry bundle in <head>. Keep it when replacing the
+  // SEO markup; otherwise the generated pages contain an empty #root.
+  const applicationScripts = (sourceHTML.match(
+    /<script\b[^>]*\btype=["']module["'][\s\S]*?<\/script>/gi
+  ) || []).join('\n    ');
+
+  if (!applicationScripts) {
+    console.error('❌ Vite application bundle script was not found in index.html.');
+    process.exit(1);
+  }
   
   // Process each public route
   PUBLIC_ROUTES.forEach(route => {
@@ -254,7 +268,7 @@ const injectMetaTags = () => {
     console.log(`  🏷️  Title: ${seoData.title}`);
     
     // Replace head content
-    const headHTML = generateHeadHTML(seoData, route);
+    const headHTML = generateHeadHTML(seoData, route, applicationScripts);
     const modifiedHTML = sourceHTML.replace(
       /<head>[\s\S]*?<\/head>/,
       '<head>' + headHTML + '\n  </head>'
