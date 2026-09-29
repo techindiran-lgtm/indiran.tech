@@ -1,4 +1,36 @@
 {
+  "redirects": [
+    {
+      "source": "/services/document_registration",
+      "destination": "/services/document-registration",
+      "statusCode": 301
+    },
+    {
+      "source": "/services/marriage_registration",
+      "destination": "/services/marriage-registration",
+      "statusCode": 301
+    },
+    {
+      "source": "/services/encumbrance_certificate",
+      "destination": "/services/encumbrance-certificate",
+      "statusCode": 301
+    },
+    {
+      "source": "/services/document_copy",
+      "destination": "/services/document-copy",
+      "statusCode": 301
+    },
+    {
+      "source": "/services/birth_death_certificate",
+      "destination": "/services/birth-death-certificate",
+      "statusCode": 301
+    },
+    {
+      "source": "/services/patta_chitta",
+      "destination": "/services/patta-chitta",
+      "statusCode": 301
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",
