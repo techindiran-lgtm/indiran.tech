@@ -87,9 +87,22 @@ function AdminPanelPage() {
 function ServiceRoute() {
   const { slug } = useParams<{ slug: string }>();
   
-  if (!slug || !SERVICE_SLUGS.includes(slug as ServiceSlug)) {
+  if (!slug) {
     return <NotFound />;
   }
+  
+  // Normalize slug: convert underscores to hyphens for common user input
+  const normalizedSlug = slug.replace(/_/g, '-');
+  
+  if (!SERVICE_SLUGS.includes(normalizedSlug as ServiceSlug)) {
+    return <NotFound />;
+  }
+  
+  // If slug was normalized, redirect to the correct URL using React Router Navigate
+  if (slug !== normalizedSlug) {
+    return <Navigate to={`/services/${normalizedSlug}`} replace />;
+  }
+  
   return <PublicSite />;
 }
 
