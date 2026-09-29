@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, Phone, MessageCircle, Settings, ChevronDown } from 'lucide-react';
+import { trackCallClick, trackWhatsAppClick } from '@/components/shared/SEO';
 import type { Settings as SettingsType } from '@/lib/types';
 
 interface NavbarProps {
@@ -13,6 +14,9 @@ export function Navbar({ settings, onNavigate, currentPage }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
+    // Guard for browser-only code
+    if (typeof window === 'undefined') return;
+    
     const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
@@ -43,15 +47,13 @@ export function Navbar({ settings, onNavigate, currentPage }: NavbarProps) {
           {/* Logo */}
           <button onClick={() => handleNav('home')} className="flex items-center gap-3 group">
             <div className="relative">
-              <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 flex items-center justify-center shadow-glow-primary group-hover:scale-105 transition-transform duration-200">
-                <span className="text-white font-extrabold text-xl">A</span>
-              </div>
+              <img src="/icon.png" alt="IDIRAN TECH Logo" className="w-11 h-11 rounded-xl shadow-glow-primary group-hover:scale-105 transition-transform duration-200 object-cover" />
               <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-accent-500 border-2 border-white" />
             </div>
             <div className="text-left">
-              <p className="font-extrabold text-slate-900 leading-tight text-base">{settings?.business_name ?? 'AAR'}</p>
+              <p className="font-extrabold text-slate-900 leading-tight text-base">{settings?.business_name ?? 'IDIRAN TECH'}</p>
               <p className="text-[11px] text-slate-500 font-tamil leading-tight">
-                {settings?.tamil_name ?? 'AAR பத்திரம் எழுதும் அலுவலகம்'}
+                {settings?.tamil_name ?? 'IDIRAN TECH பத்திரம் எழுதும் அலுவலகம்'}
               </p>
             </div>
           </button>
@@ -78,6 +80,7 @@ export function Navbar({ settings, onNavigate, currentPage }: NavbarProps) {
             {settings?.phone && (
               <a
                 href={`tel:${settings.phone}`}
+                onClick={() => trackCallClick(settings.phone)}
                 className="btn-secondary !px-3.5 !py-2"
                 title="Call us"
               >
@@ -90,6 +93,7 @@ export function Navbar({ settings, onNavigate, currentPage }: NavbarProps) {
                 href={`https://wa.me/${settings.whatsapp.replace(/[^0-9]/g, '')}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackWhatsAppClick(settings.whatsapp)}
                 className="btn-success !px-3.5 !py-2"
                 title="WhatsApp"
               >

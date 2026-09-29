@@ -1,0 +1,223 @@
+export const en = {
+  // Navigation
+  nav: {
+    home: 'Home',
+    services: 'Services',
+    about: 'About',
+    contact: 'Contact',
+    bookAppointment: 'Book Appointment',
+    call: 'Call',
+    whatsapp: 'WhatsApp',
+    adminPanel: 'Admin Panel',
+  },
+  
+  // Hero
+  hero: {
+    documentOffice: 'Document Registration Office',
+    tagline: 'Your trusted document registration office in Gangaikondan',
+    description: 'We provide professional services for all your document, certificate, and land record needs with efficiency and care.',
+    viewServices: 'View Services',
+    callOffice: 'Call Office',
+    contactUs: 'Contact Us',
+  },
+  
+  // Services
+  services: {
+    documentRegistration: {
+      name: 'Document Registration',
+      nameWithAssist: 'Document Registration (பத்திரப்பதிவு உதவி)',
+      description: 'Register property documents and deeds with official records.',
+      details: [
+        'Property sale deed registration',
+        'Gift deed registration',
+        'Mortgage deed registration',
+        'Lease agreement registration',
+        'Power of attorney registration',
+      ],
+      h1: 'Document Registration Services in Gangaikondan',
+      intro: 'We provide professional document registration services for property transactions, agreements, and legal documents in Gangaikondan and surrounding areas.',
+      documentsRequired: 'Documents Required',
+      howItWorks: 'How It Works',
+      fees: 'Contact us for current registration fees and stamp duty rates',
+      timeline: 'Contact us for current processing timeline',
+      whyChooseUs: 'Why Choose IDIRAN TECH?',
+      contactUs: 'Contact us for current details',
+    },
+    marriageRegistration: {
+      name: 'Marriage Registration',
+      nameWithAssist: 'Marriage Registration',
+      description: 'Official marriage registration and certificate issuance.',
+      details: [
+        'Hindu Marriage Act registration',
+        'Special Marriage Act registration',
+        'Marriage certificate issuance',
+        'Name change after marriage',
+      ],
+      h1: 'Marriage Registration Services in Gangaikondan',
+      intro: 'We assist with complete marriage registration procedures under Hindu Marriage Act and Special Marriage Act in Gangaikondan.',
+      documentsRequired: 'Documents Required',
+      howItWorks: 'How It Works',
+      fees: 'Contact us for current registration fees',
+      timeline: 'Contact us for current processing timeline',
+      whyChooseUs: 'Why Choose IDIRAN TECH?',
+      contactUs: 'Contact us for current details',
+    },
+    ecRequest: {
+      name: 'Encumbrance Certificate (EC)',
+      nameWithAssist: 'Encumbrance Certificate (EC)',
+      description: 'Request an Encumbrance Certificate for property verification.',
+      details: [
+        'Property encumbrance verification',
+        'EC for specified period',
+        'Manual processing by our office',
+        'Certificate upload upon completion',
+      ],
+      h1: 'Encumbrance Certificate (EC) Services in Gangaikondan',
+      intro: 'We provide efficient EC services for properties in Gangaikondan and Tirunelveli district for property verification and transactions.',
+      documentsRequired: 'Documents Required',
+      howItWorks: 'How It Works',
+      fees: 'Contact us for current EC fees',
+      timeline: 'Contact us for current processing timeline',
+      whyChooseUs: 'Why Choose IDIRAN TECH?',
+      contactUs: 'Contact us for current details',
+    },
+    documentCopy: {
+      name: 'Document Copy',
+      nameWithAssist: 'Document Copy',
+      description: 'Get certified copies of registered documents.',
+      details: [
+        'Certified copy of registered deed',
+        'Copy of sale agreement',
+        'Copy of mortgage document',
+        'Copy of power of attorney',
+      ],
+      h1: 'Document Copy Services in Gangaikondan',
+      intro: 'We assist in obtaining certified copies of registered documents from government records for various legal purposes.',
+      documentsRequired: 'Documents Required',
+      howItWorks: 'How It Works',
+      fees: 'Contact us for current copy fees',
+      timeline: 'Contact us for current processing timeline',
+      whyChooseUs: 'Why Choose IDIRAN TECH?',
+      contactUs: 'Contact us for current details',
+    },
+    birthDeathCertificate: {
+      name: 'Birth / Death Certificate',
+      nameWithAssist: 'Birth / Death Certificate',
+      description: 'Apply for birth or death certificate copies and corrections.',
+      details: [
+        'Birth certificate issuance',
+        'Death certificate issuance',
+        'Certificate corrections',
+        'Delayed registration',
+      ],
+      h1: 'Birth / Death Certificate Services in Gangaikondan',
+      intro: 'We provide assistance in obtaining birth and death certificates from government authorities for various official purposes.',
+      documentsRequired: 'Documents Required',
+      howItWorks: 'How It Works',
+      fees: 'Contact us for current certificate fees',
+      timeline: 'Contact us for current processing timeline',
+      whyChooseUs: 'Why Choose IDIRAN TECH?',
+      contactUs: 'Contact us for current details',
+    },
+    pattaChitta: {
+      name: 'Patta / Chitta',
+      nameWithAssist: 'Patta / Chitta',
+      description: 'Apply for Patta and Chitta land records.',
+      details: [
+        'Patta transfer application',
+        'Chitta extract',
+        'Joint Patta application',
+        'Land record verification',
+      ],
+      h1: 'Patta / Chitta Services in Gangaikondan',
+      intro: 'We provide expert assistance for Patta and Chitta land records, which are essential for property transactions and ownership verification.',
+      documentsRequired: 'Documents Required',
+      howItWorks: 'How It Works',
+      fees: 'Contact us for current Patta/Chitta fees',
+      timeline: 'Contact us for current processing timeline',
+      whyChooseUs: 'Why Choose IDIRAN TECH?',
+      contactUs: 'Contact us for current details',
+    },
+  },
+  
+  // Trust Section
+  trust: {
+    title: 'Why Trust IDIRAN TECH?',
+    professionalService: 'Professional Service',
+    professionalServiceDesc: 'Expert assistance with all document registration needs',
+    localExpertise: 'Local Expertise',
+    localExpertiseDesc: 'Deep knowledge of Gangaikondan and Tirunelveli district procedures',
+    efficientProcessing: 'Efficient Processing',
+    efficientProcessingDesc: 'Quick turnaround with proper documentation',
+    visitOffice: 'Visit Our Office',
+    address: 'Address',
+    officeHours: 'Office Hours',
+    phone: 'Phone',
+    yearsOfService: 'Years of Service',
+    yearsOfServiceDesc: 'Serving the local community with dedication',
+  },
+  
+  // FAQ
+  faq: {
+    title: 'Frequently Asked Questions',
+    q1: {
+      question: 'What documents are required for property registration?',
+      answer: 'For property registration, you typically need the original sale deed, identity proof (Aadhaar/PAN), address proof, passport size photographs, property tax receipts, encumbrance certificate, and previous sale deed if applicable. Contact us for the complete list based on your specific case.',
+    },
+    q2: {
+      question: 'How long does document registration take?',
+      answer: 'The timeline varies based on document type and government office processing times. Contact us for current processing timelines for your specific document type.',
+    },
+    q3: {
+      question: 'What are the fees for document services?',
+      answer: 'Fees vary based on document type, property value, and government charges. Contact us for current fee structure for your specific requirements.',
+    },
+    q4: {
+      question: 'Do you provide services for areas outside Gangaikondan?',
+      answer: 'We primarily serve Gangaikondan and surrounding areas in Tirunelveli district. Contact us to check if we can assist with your specific location.',
+    },
+    q5: {
+      question: 'Can you help with urgent document requirements?',
+      answer: 'Yes, we can assist with urgent requirements. Contact us directly to discuss your timeline and we will do our best to accommodate your needs.',
+    },
+    q6: {
+      question: 'What payment methods do you accept?',
+      answer: 'We accept various payment methods including cash, UPI, and bank transfers. Contact us for specific payment options for your service.',
+    },
+  },
+  
+  // Forms
+  form: {
+    customerInfo: 'Customer Information',
+    name: 'Name',
+    phone: 'Phone',
+    email: 'Email',
+    address: 'Address',
+    serviceDetails: 'Service Details',
+    uploadDocuments: 'Upload Documents',
+    submitRequest: 'Submit Request',
+    bookAppointment: 'Book Appointment',
+    nameRequired: 'Name is required',
+    phoneRequired: 'Phone is required',
+    fillRequired: 'Please fill in: ',
+    submitting: 'Submitting...',
+    successTitle: 'Request Submitted!',
+    successMessage: 'Your service request has been received.',
+    successFollowUp: 'Our team will contact you at your phone number shortly. Please keep your phone available.',
+    browseMore: 'Browse More Services',
+    submitFailed: 'Failed to submit request. Please try again or call us.',
+  },
+  
+  // Errors
+  errors: {
+    pageNotFound: 'Page Not Found',
+    pageNotFoundDesc: 'The page you are looking for does not exist or has been moved.',
+    backToHome: 'Back to Home',
+  },
+  
+  // Language Switcher
+  language: {
+    english: 'EN',
+    tamil: 'தமிழ்',
+  },
+};

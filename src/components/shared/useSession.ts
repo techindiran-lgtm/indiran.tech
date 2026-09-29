@@ -7,6 +7,12 @@ export function useSession() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Guard for browser-only code
+    if (typeof window === 'undefined') {
+      setLoading(false);
+      return;
+    }
+    
     supabase.auth.getSession().then(({ data }) => {
       setSession(data.session);
       setLoading(false);

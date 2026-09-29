@@ -95,11 +95,13 @@ CREATE TABLE IF NOT EXISTS admin_users (
 );
 
 -- Business settings
+-- Business settings
 CREATE TABLE IF NOT EXISTS settings (
     id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
     business_name text NOT NULL DEFAULT 'IDIRAN TECH',
     tamil_name text NOT NULL DEFAULT 'IDIRAN TECH பத்திரம் எழுதும் அலுவலகம்',
-    address text NOT NULL DEFAULT 'கங்கைகொண்டான் சார்பதிவாளர் அலுவலகம் நேரில், திருநெல்வேலி - 627352
+    address text NOT NULL DEFAULT 'கங்கைகொண்டான் சார்பதிவாளர் அலுவலகம் நேரில், திருநெல்வேலி - 627352',
+    location text DEFAULT 'கங்கைகொண்டான்',
     phone text DEFAULT '',
     whatsapp text DEFAULT '',
     email text DEFAULT '',

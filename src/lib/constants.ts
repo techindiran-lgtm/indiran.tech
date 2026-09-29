@@ -24,7 +24,7 @@ export const SERVICES: ServiceInfo[] = [
   {
     key: 'document_registration',
     name: 'Document Registration',
-    tamilName: 'பத்திர பதிவு',
+    tamilName: 'பத்திரப் பதிவு',
     icon: 'FileText',
     description: 'Register property documents and deeds with official records.',
     details: [
@@ -47,7 +47,7 @@ export const SERVICES: ServiceInfo[] = [
   {
     key: 'marriage_registration',
     name: 'Marriage Registration',
-    tamilName: 'திருமண பதிவு',
+    tamilName: 'திருமணப் பதிவு',
     icon: 'Heart',
     description: 'Official marriage registration and certificate issuance.',
     details: [
@@ -70,7 +70,7 @@ export const SERVICES: ServiceInfo[] = [
   {
     key: 'ec_request',
     name: 'Encumbrance Certificate (EC)',
-    tamilName: 'வில்லங்கச் சான்று',
+    tamilName: 'வில்லங்கச் சான்றிதழ்',
     icon: 'ShieldCheck',
     description: 'Request an Encumbrance Certificate for property verification.',
     details: [
@@ -112,7 +112,7 @@ export const SERVICES: ServiceInfo[] = [
   {
     key: 'birth_death_certificate',
     name: 'Birth / Death Certificate',
-    tamilName: 'பிறப்பு/இறப்பு சான்று',
+    tamilName: 'பிறப்பு/இறப்பு சான்றிதழ்',
     icon: 'Certificate',
     description: 'Apply for birth or death certificate copies and corrections.',
     details: [

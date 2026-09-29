@@ -1,18 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ArrowLeft, Upload, Send, Phone, MessageCircle, CheckCircle } from 'lucide-react';
 import { SERVICES, SERVICE_MAP } from '@/lib/constants';
 import { ServiceIcon } from '@/components/shared/ServiceIcon';
 import { useToast } from '@/components/shared/Toast';
+import { ServiceJsonLd, BreadcrumbJsonLd } from '@/components/shared/JsonLd';
+import { trackFormStart, trackFormSubmit } from '@/components/shared/SEO';
+import { ServiceContent } from '@/components/public/ServiceContent';
+import { FAQSection } from '@/components/public/FAQSection';
+import { TrustSection } from '@/components/public/TrustSection';
 import { supabase } from '@/lib/supabase';
-import type { ServiceType, ServiceField } from '@/lib/types';
+import type { ServiceType } from '@/lib/types';
 
 interface ServiceFormProps {
   serviceKey: ServiceType;
   onBack: () => void;
   onNavigate: (page: string, serviceKey?: string) => void;
+  settings?: any;
 }
 
-export function ServiceForm({ serviceKey, onBack, onNavigate }: ServiceFormProps) {
+export function ServiceForm({ serviceKey, onBack, onNavigate, settings }: ServiceFormProps) {
   const service = SERVICE_MAP[serviceKey];
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [customer, setCustomer] = useState({ name: '', phone: '', email: '', address: '' });
@@ -21,7 +27,19 @@ export function ServiceForm({ serviceKey, onBack, onNavigate }: ServiceFormProps
   const [submitted, setSubmitted] = useState(false);
   const { show } = useToast();
 
+  // Track form start when component mounts
+  useEffect(() => {
+    trackFormStart(serviceKey);
+  }, [serviceKey]);
+
   if (!service) return null;
+
+  const serviceDescription = `Professional ${service.name} services in Gangaikondan, Tamil Nadu. IDIRAN TECH provides expert assistance with ${service.name} including document verification, processing, and registration.`;
+  const breadcrumbItems = [
+    { name: 'Home', url: 'https://indiran-tech.vercel.app' },
+    { name: 'Services', url: 'https://indiran-tech.vercel.app/services' },
+    { name: service.name, url: `https://indiran-tech.vercel.app/services/${serviceKey}` }
+  ];
 
   const handleFieldChange = (name: string, value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -119,6 +137,7 @@ export function ServiceForm({ serviceKey, onBack, onNavigate }: ServiceFormProps
       }
 
       setSubmitted(true);
+      trackFormSubmit(serviceKey);
       show('Your service request has been submitted successfully!');
     } catch {
       show('Failed to submit request. Please try again or call us.', 'error');
@@ -158,7 +177,10 @@ export function ServiceForm({ serviceKey, onBack, onNavigate }: ServiceFormProps
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white pt-20 pb-12">
+    <>
+      <ServiceJsonLd serviceName={service.name} description={serviceDescription} />
+      <BreadcrumbJsonLd items={breadcrumbItems} />
+      <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white pt-20 pb-12">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <button onClick={onBack} className="btn-ghost mb-6 -ml-2">
           <ArrowLeft className="w-4 h-4" /> Back
@@ -252,7 +274,7 @@ export function ServiceForm({ serviceKey, onBack, onNavigate }: ServiceFormProps
                         required={field.required}
                       >
                         <option value="">Select {field.label}</option>
-                        {field.options?.map((opt) => (
+                        {field.options?.map((opt: string) => (
                           <option key={opt} value={opt}>{opt}</option>
                         ))}
                       </select>
@@ -329,6 +351,15 @@ export function ServiceForm({ serviceKey, onBack, onNavigate }: ServiceFormProps
           </form>
         </div>
 
+        {/* Service Content */}
+        <ServiceContent serviceKey={serviceKey} />
+
+        {/* FAQ Section */}
+        <FAQSection />
+
+        {/* Trust Section */}
+        <TrustSection settings={settings} />
+
         {/* Quick contact */}
         <div className="mt-6 flex flex-wrap gap-3 justify-center">
           <a href="tel:+91" className="btn-secondary">
@@ -340,5 +371,6 @@ export function ServiceForm({ serviceKey, onBack, onNavigate }: ServiceFormProps
         </div>
       </div>
     </div>
+    </>
   );
 }
