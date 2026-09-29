@@ -14,16 +14,6 @@ export type PaymentStatus = 'pending' | 'paid' | 'refunded' | 'failed';
 
 export type ECStatus = 'pending' | 'processing' | 'completed' | 'rejected';
 
-export interface ServiceField {
-  name: string;
-  label: string;
-  tamilLabel: string;
-  type: 'text' | 'textarea' | 'date' | 'select' | 'tel' | 'file' | 'number';
-  required: boolean;
-  options?: string[];
-  placeholder?: string;
-}
-
 export interface Settings {
   id: string;
   business_name: string;

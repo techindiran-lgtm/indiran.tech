@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Search, Plus, X, Save, CreditCard, Trash2 } from 'lucide-react';
+import { Search, Plus, X, Save, Trash2 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { PAYMENT_STATUS_LABELS, PAYMENT_STATUS_COLORS, SERVICE_MAP } from '@/lib/constants';
 import type { Payment, PaymentStatus, Customer, ServiceRequest } from '@/lib/types';
 
-interface PaymentWithDetails extends Payment {
-  customer?: { name: string; phone: string } | null;
-  service_request?: { service_type: string } | null;
+interface PaymentWithDetails extends Omit<Payment, 'customer'> {
+  customer?: { name: string; phone: string } | null | undefined;
+  service_request?: { service_type: string } | null | undefined;
 }
 
 export function AdminPayments() {

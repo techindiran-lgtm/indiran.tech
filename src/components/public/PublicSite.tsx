@@ -12,6 +12,7 @@ import { MobileStickyBar } from '@/components/public/MobileStickyBar';
 import { SEO } from '@/components/shared/SEO';
 import { supabase } from '@/lib/supabase';
 import type { Settings as SettingsType, ServiceType } from '@/lib/types';
+import { slugToServiceType, serviceTypeToSlug, type ServiceSlug } from '@/lib/routes';
 
 export function PublicSite() {
   const location = useLocation();
@@ -40,7 +41,9 @@ export function PublicSite() {
   };
 
   const page = getPageFromPath(location.pathname);
-  const activeService = page === 'service' ? (params.slug as ServiceType) : null;
+  const activeService = page === 'service' && params.slug
+    ? slugToServiceType[params.slug as ServiceSlug]
+    : null;
 
   const handleNavigate = (target: string, serviceKey?: string) => {
     if (target === 'admin') {
@@ -48,7 +51,8 @@ export function PublicSite() {
       return;
     }
     if (target === 'service' && serviceKey) {
-      navigate(`/services/${serviceKey}`);
+      const serviceSlug = serviceTypeToSlug[serviceKey as ServiceType];
+      navigate(`/services/${serviceSlug ?? serviceKey}`);
       window.scrollTo(0, 0);
       return;
     }
@@ -89,7 +93,7 @@ export function PublicSite() {
           description: 'Schedule an appointment with IDIRAN TECH document office in Gangaikondan. Quick booking for document registration, EC, and other services.',
           canonical: `${baseUrl}/appointment`
         };
-      case 'service':
+      case 'service': {
         const serviceNames: Record<ServiceType, string> = {
           document_registration: 'Document Registration',
           marriage_registration: 'Marriage Registration',
@@ -104,6 +108,7 @@ export function PublicSite() {
           description: `Professional ${serviceName} services in Gangaikondan, Tamil Nadu. IDIRAN TECH provides expert assistance with ${serviceName}.`,
           canonical: `${baseUrl}/services/${activeService}`
         };
+      }
       default:
         return {
           title: 'Document Registration & EC Services in Gangaikondan | IDIRAN TECH',

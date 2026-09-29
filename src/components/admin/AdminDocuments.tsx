@@ -3,8 +3,8 @@ import { Search, Download, Trash2, FileText, X } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import type { DocumentRecord } from '@/lib/types';
 
-interface DocWithCustomer extends DocumentRecord {
-  customer?: { name: string; phone: string } | null;
+interface DocWithCustomer extends Omit<DocumentRecord, 'customer'> {
+  customer?: { name: string; phone: string } | null | undefined;
 }
 
 export function AdminDocuments() {

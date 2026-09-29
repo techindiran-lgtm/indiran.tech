@@ -1,21 +1,21 @@
 import { useState, useEffect } from 'react';
 import { ArrowLeft, Upload, Send, Phone, MessageCircle, CheckCircle } from 'lucide-react';
-import { SERVICES, SERVICE_MAP } from '@/lib/constants';
+import { SERVICE_MAP } from '@/lib/constants';
 import { ServiceIcon } from '@/components/shared/ServiceIcon';
 import { useToast } from '@/components/shared/Toast';
-import { ServiceJsonLd, BreadcrumbJsonLd } from '@/components/shared/JsonLd';
+import { LocalBusinessJsonLd } from '@/components/shared/JsonLd';
 import { trackFormStart, trackFormSubmit } from '@/components/shared/SEO';
 import { ServiceContent } from '@/components/public/ServiceContent';
 import { FAQSection } from '@/components/public/FAQSection';
 import { TrustSection } from '@/components/public/TrustSection';
 import { supabase } from '@/lib/supabase';
-import type { ServiceType } from '@/lib/types';
+import type { ServiceType, Settings } from '@/lib/types';
 
 interface ServiceFormProps {
   serviceKey: ServiceType;
   onBack: () => void;
   onNavigate: (page: string, serviceKey?: string) => void;
-  settings?: any;
+  settings?: Settings | null;
 }
 
 export function ServiceForm({ serviceKey, onBack, onNavigate, settings }: ServiceFormProps) {
@@ -33,13 +33,6 @@ export function ServiceForm({ serviceKey, onBack, onNavigate, settings }: Servic
   }, [serviceKey]);
 
   if (!service) return null;
-
-  const serviceDescription = `Professional ${service.name} services in Gangaikondan, Tamil Nadu. IDIRAN TECH provides expert assistance with ${service.name} including document verification, processing, and registration.`;
-  const breadcrumbItems = [
-    { name: 'Home', url: 'https://indiran-tech.vercel.app' },
-    { name: 'Services', url: 'https://indiran-tech.vercel.app/services' },
-    { name: service.name, url: `https://indiran-tech.vercel.app/services/${serviceKey}` }
-  ];
 
   const handleFieldChange = (name: string, value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -178,8 +171,7 @@ export function ServiceForm({ serviceKey, onBack, onNavigate, settings }: Servic
 
   return (
     <>
-      <ServiceJsonLd serviceName={service.name} description={serviceDescription} />
-      <BreadcrumbJsonLd items={breadcrumbItems} />
+      <LocalBusinessJsonLd settings={settings} />
       <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white pt-20 pb-12">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <button onClick={onBack} className="btn-ghost mb-6 -ml-2">
@@ -260,7 +252,7 @@ export function ServiceForm({ serviceKey, onBack, onNavigate, settings }: Servic
                 Service Details
               </h3>
               <div className="grid sm:grid-cols-2 gap-4">
-                {service.fields.map((field: ServiceField) => (
+                {service.fields.map((field) => (
                   <div key={field.name} className={field.type === 'textarea' ? 'sm:col-span-2' : ''}>
                     <label className="label">
                       {field.label} {field.required && <span className="text-error-600">*</span>}

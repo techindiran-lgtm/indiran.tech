@@ -2,17 +2,25 @@ import { lazy, Suspense } from 'react';
 import { createBrowserRouter, RouterProvider, Navigate, useParams } from 'react-router-dom';
 import { ToastProvider } from '@/components/shared/Toast';
 import { PublicSite } from '@/components/public/PublicSite';
-import { AdminLogin } from '@/components/admin/AdminLogin';
-import { AdminPanel } from '@/components/admin/AdminPanel';
 import { NotFound } from '@/components/shared/NotFound';
 import { SEO } from '@/components/shared/SEO';
 import { useSession } from '@/components/shared/useSession';
 import { supabase } from '@/lib/supabase';
-import { SERVICE_SLUGS, type ServiceSlug } from '@/lib/routes';
+import { normalizeServiceSlug } from '@/lib/routes';
 
 // Lazy load admin panel (noindex, not prerendered)
 const AdminLoginComponent = lazy(() => import('@/components/admin/AdminLogin').then(m => ({ default: m.AdminLogin })));
 const AdminPanelComponent = lazy(() => import('@/components/admin/AdminPanel').then(m => ({ default: m.AdminPanel })));
+
+// Admin helper functions
+const handleLogout = async () => {
+  await supabase.auth.signOut();
+  window.location.href = '/';
+};
+
+const handleViewSite = () => {
+  window.location.href = '/';
+};
 
 // Admin routes with auth protection
 function AdminLoginPage() {
@@ -27,7 +35,7 @@ function AdminLoginPage() {
   }
 
   if (session) {
-    return <AdminPanelComponent />;
+    return <AdminPanelComponent session={session} onLogout={handleLogout} onViewSite={handleViewSite} />;
   }
 
   return (
@@ -58,15 +66,6 @@ function AdminPanelPage() {
     return null;
   }
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    window.location.href = '/';
-  };
-
-  const handleViewSite = () => {
-    window.location.href = '/';
-  };
-
   return (
     <>
       <SEO 
@@ -91,10 +90,9 @@ function ServiceRoute() {
     return <NotFound />;
   }
   
-  // Normalize slug: convert underscores to hyphens for common user input
-  const normalizedSlug = slug.replace(/_/g, '-');
+  const normalizedSlug = normalizeServiceSlug(slug);
   
-  if (!SERVICE_SLUGS.includes(normalizedSlug as ServiceSlug)) {
+  if (!normalizedSlug) {
     return <NotFound />;
   }
   
