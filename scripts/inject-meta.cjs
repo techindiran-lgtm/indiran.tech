@@ -182,7 +182,7 @@ const getRouteJsonLd = (route) => {
 };
 
 // Generate head HTML with SEO tags
-const generateHeadHTML = (seoData, route, applicationScripts) => {
+const generateHeadHTML = (seoData, route, applicationAssets) => {
   const jsonLd = getRouteJsonLd(route);
   
   return `
@@ -215,8 +215,8 @@ const generateHeadHTML = (seoData, route, applicationScripts) => {
     <!-- JSON-LD -->
     ${jsonLd.map(schema => `<script type="application/ld+json">${JSON.stringify(schema)}</script>`).join('\n    ')}
 
-    <!-- Application bundle emitted by Vite -->
-    ${applicationScripts}
+    <!-- Application assets emitted by Vite -->
+    ${applicationAssets}
   `;
 };
 
@@ -233,14 +233,18 @@ const injectMetaTags = () => {
   const sourceHTML = fs.readFileSync(SOURCE_HTML, 'utf-8');
   console.log(`✅ Read source HTML from ${SOURCE_HTML}`);
 
-  // Vite emits the React entry bundle in <head>. Keep it when replacing the
-  // SEO markup; otherwise the generated pages contain an empty #root.
-  const applicationScripts = (sourceHTML.match(
+  // Vite emits the React entry bundle and stylesheet in <head>. Keep both when
+  // replacing SEO markup; otherwise pages are blank or lose all Tailwind styles.
+  const moduleScripts = sourceHTML.match(
     /<script\b[^>]*\btype=["']module["'][\s\S]*?<\/script>/gi
-  ) || []).join('\n    ');
+  ) || [];
+  const stylesheetLinks = sourceHTML.match(
+    /<link\b(?=[^>]*\brel=["']stylesheet["'])[^>]*>/gi
+  ) || [];
+  const applicationAssets = [...stylesheetLinks, ...moduleScripts].join('\n    ');
 
-  if (!applicationScripts) {
-    console.error('❌ Vite application bundle script was not found in index.html.');
+  if (!moduleScripts.length || !stylesheetLinks.length) {
+    console.error('❌ Vite application bundle or stylesheet was not found in index.html.');
     process.exit(1);
   }
   
@@ -268,7 +272,7 @@ const injectMetaTags = () => {
     console.log(`  🏷️  Title: ${seoData.title}`);
     
     // Replace head content
-    const headHTML = generateHeadHTML(seoData, route, applicationScripts);
+    const headHTML = generateHeadHTML(seoData, route, applicationAssets);
     const modifiedHTML = sourceHTML.replace(
       /<head>[\s\S]*?<\/head>/,
       '<head>' + headHTML + '\n  </head>'
