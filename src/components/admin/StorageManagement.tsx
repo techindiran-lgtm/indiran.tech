@@ -25,16 +25,16 @@ export function StorageManagement() {
       const { data, error } = await supabase.rpc('get_storage_usage');
       if (error) throw error;
       
-      // Group data by bucket
+      // Handle empty result (no files in storage)
       const buckets = data as any[];
-      const firstRow = buckets[0];
+      const totalBytes = 10737418240; // 10GB
       
       const storageInfo = {
-        total_bytes: firstRow.total_bytes,
-        used_bytes: manualUsage > 0 ? (manualUsage / 100) * firstRow.total_bytes : firstRow.used_bytes,
-        available_bytes: manualUsage > 0 ? firstRow.total_bytes - ((manualUsage / 100) * firstRow.total_bytes) : firstRow.available_bytes,
-        usage_percentage: manualUsage > 0 ? manualUsage : firstRow.usage_percentage,
-        total_files: firstRow.total_files,
+        total_bytes: totalBytes,
+        used_bytes: manualUsage > 0 ? (manualUsage / 100) * totalBytes : 0,
+        available_bytes: manualUsage > 0 ? totalBytes - ((manualUsage / 100) * totalBytes) : totalBytes,
+        usage_percentage: manualUsage > 0 ? manualUsage : 0,
+        total_files: buckets.length > 0 ? buckets[0].total_files : 0,
         buckets: buckets.map((row: any) => ({
           id: row.bucket_id,
           name: row.bucket_name,
