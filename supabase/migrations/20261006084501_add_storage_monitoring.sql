@@ -3,6 +3,10 @@
 -- Protected by database function security - only authenticated users can call it
 
 -- Create function to get storage usage statistics
+-- Note: Supabase Storage doesn't expose size columns in storage.objects for security
+-- This function returns bucket information and file counts only
+DROP FUNCTION IF EXISTS get_storage_usage();
+
 CREATE OR REPLACE FUNCTION get_storage_usage()
 RETURNS TABLE (
   total_bytes BIGINT,
@@ -13,7 +17,6 @@ RETURNS TABLE (
   bucket_id TEXT,
   bucket_name TEXT,
   public BOOLEAN,
-  bucket_size_bytes BIGINT,
   bucket_file_count BIGINT
 )
 LANGUAGE plpgsql
@@ -31,7 +34,6 @@ BEGIN
       b.id as bucket_db_id,
       b.name as bucket_name,
       b.public,
-      COALESCE(SUM(o.size_bytes), 0) as bucket_size_bytes,
       COUNT(*) as bucket_file_count
     FROM storage.objects o
     JOIN storage.buckets b ON o.bucket_id = b.id
@@ -39,36 +41,32 @@ BEGIN
   )
   SELECT 
     si.total_limit_bytes as total_bytes,
-    COALESCE(SUM(bu.bucket_size_bytes), 0) as used_bytes,
-    si.total_limit_bytes - COALESCE(SUM(bu.bucket_size_bytes), 0) as available_bytes,
-    CASE 
-      WHEN si.total_limit_bytes > 0 
-      THEN ROUND((COALESCE(SUM(bu.bucket_size_bytes), 0)::numeric / si.total_limit_bytes::numeric) * 100, 2)
-      ELSE 0 
-    END as usage_percentage,
+    0 as used_bytes, -- Size not available, requires service role
+    si.total_limit_bytes as available_bytes,
+    0 as usage_percentage, -- Cannot calculate without size data
     COALESCE(SUM(bu.bucket_file_count), 0) as total_files,
     bu.bucket_id,
     bu.bucket_name,
     bu.public,
-    bu.bucket_size_bytes,
     bu.bucket_file_count
   FROM storage_info si
   CROSS JOIN bucket_usage bu
-  GROUP BY si.total_limit_bytes, bu.bucket_id, bu.bucket_name, bu.public, bu.bucket_size_bytes, bu.bucket_file_count;
+  GROUP BY si.total_limit_bytes, bu.bucket_id, bu.bucket_name, bu.public, bu.bucket_file_count;
 END;
 $$;
 
 -- Grant execute permission to authenticated users
 GRANT EXECUTE ON FUNCTION get_storage_usage TO authenticated;
 
--- Create function to get largest files in storage
+-- Create function to get all files in storage (without size)
+DROP FUNCTION IF EXISTS get_largest_files(integer);
+
 CREATE OR REPLACE FUNCTION get_largest_files(limit_count INTEGER DEFAULT 20)
 RETURNS TABLE (
   id TEXT,
   name TEXT,
   bucket_id TEXT,
   bucket_name TEXT,
-  size_bytes BIGINT,
   created_at TIMESTAMPTZ,
   last_accessed_at TIMESTAMPTZ,
   owner TEXT,
@@ -84,14 +82,13 @@ BEGIN
     o.name,
     o.bucket_id,
     b.name as bucket_name,
-    o.size_bytes,
     o.created_at,
     o.last_accessed_at,
     o.owner,
     o.path
   FROM storage.objects o
   JOIN storage.buckets b ON o.bucket_id = b.id
-  ORDER BY o.size_bytes DESC
+  ORDER BY o.created_at DESC
   LIMIT limit_count;
 END;
 $$;
@@ -100,6 +97,8 @@ $$;
 GRANT EXECUTE ON FUNCTION get_largest_files TO authenticated;
 
 -- Create function to delete a file from storage
+DROP FUNCTION IF EXISTS delete_storage_file(text, text);
+
 CREATE OR REPLACE FUNCTION delete_storage_file(file_id TEXT, bucket_id TEXT)
 RETURNS TEXT
 LANGUAGE plpgsql
@@ -129,6 +128,8 @@ GRANT EXECUTE ON FUNCTION delete_storage_file TO authenticated;
 
 -- Create a notification function for storage warnings
 -- This should be called manually from the admin panel or via a scheduled job
+DROP FUNCTION IF EXISTS create_storage_warning_notification(numeric);
+
 CREATE OR REPLACE FUNCTION create_storage_warning_notification(usage_percentage NUMERIC)
 RETURNS TEXT
 LANGUAGE plpgsql

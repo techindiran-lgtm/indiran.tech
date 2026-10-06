@@ -13,6 +13,7 @@ export function StorageManagement() {
   const [selectedFile, setSelectedFile] = useState<StorageFile | null>(null);
   const [deleting, setDeleting] = useState(false);
   const { show } = useToast();
+  const [manualUsage, setManualUsage] = useState<number>(0);
 
   useEffect(() => {
     loadStorageData();
@@ -30,17 +31,17 @@ export function StorageManagement() {
       
       const storageInfo = {
         total_bytes: firstRow.total_bytes,
-        used_bytes: firstRow.used_bytes,
-        available_bytes: firstRow.available_bytes,
-        usage_percentage: firstRow.usage_percentage,
+        used_bytes: manualUsage > 0 ? (manualUsage / 100) * firstRow.total_bytes : firstRow.used_bytes,
+        available_bytes: manualUsage > 0 ? firstRow.total_bytes - ((manualUsage / 100) * firstRow.total_bytes) : firstRow.available_bytes,
+        usage_percentage: manualUsage > 0 ? manualUsage : firstRow.usage_percentage,
         total_files: firstRow.total_files,
         buckets: buckets.map((row: any) => ({
           id: row.bucket_id,
           name: row.bucket_name,
           public: row.public,
-          file_size: row.bucket_size_bytes,
+          file_size: 0, // Not available without service role
           file_count: row.bucket_file_count,
-          size_bytes: row.bucket_size_bytes,
+          size_bytes: 0, // Not available without service role
         })),
       };
       
@@ -178,6 +179,30 @@ export function StorageManagement() {
       {/* Storage Overview */}
       <div className="card p-6">
         <h3 className="font-bold text-slate-900 mb-4">Storage Overview</h3>
+        
+        {/* Manual Usage Input */}
+        <div className="mb-4 p-4 rounded-xl bg-blue-50 border border-blue-200">
+          <p className="text-sm text-blue-800 mb-2">
+            <strong>Note:</strong> Supabase Storage doesn't expose file size data without service role keys for security.
+            Enter your current storage usage from the Supabase Dashboard to see accurate calculations.
+          </p>
+          <div className="flex items-center gap-3">
+            <input
+              type="number"
+              min="0"
+              max="100"
+              step="0.1"
+              value={manualUsage || ''}
+              onChange={(e) => setManualUsage(parseFloat(e.target.value) || 0)}
+              placeholder="Enter usage % (e.g., 25.5)"
+              className="input w-48"
+            />
+            <button onClick={loadStorageData} className="btn-primary">
+              Update Usage
+            </button>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="p-4 rounded-xl bg-slate-50">
             <p className="text-xs text-slate-500 mb-1">Total Storage</p>
@@ -233,16 +258,10 @@ export function StorageManagement() {
                 </div>
                 <div className="flex items-center gap-4 text-xs text-slate-500">
                   <span>{bucket.file_count} files</span>
-                  <span>{formatBytes(bucket.size_bytes)}</span>
                   <span className={bucket.public ? 'text-green-600' : 'text-slate-400'}>
                     {bucket.public ? 'Public' : 'Private'}
                   </span>
                 </div>
-              </div>
-              <div className="w-32 text-right">
-                <p className="text-sm font-semibold text-slate-900">
-                  {((bucket.size_bytes / storageData.total_bytes) * 100).toFixed(1)}%
-                </p>
               </div>
             </div>
           ))}
@@ -277,7 +296,6 @@ export function StorageManagement() {
                     <p className="text-sm font-medium text-slate-800 truncate">{file.name}</p>
                     <div className="flex items-center gap-4 text-xs text-slate-500 mt-1">
                       <span>{file.bucket_name}</span>
-                      <span>{formatBytes(file.size_bytes)}</span>
                       <span>Created: {new Date(file.created_at).toLocaleDateString()}</span>
                     </div>
                   </div>
@@ -323,10 +341,6 @@ export function StorageManagement() {
               <div>
                 <label className="label">File Name</label>
                 <p className="text-sm text-slate-800">{selectedFile.name}</p>
-              </div>
-              <div>
-                <label className="label">Size</label>
-                <p className="text-sm text-slate-800">{formatBytes(selectedFile.size_bytes)}</p>
               </div>
               <div>
                 <label className="label">Bucket</label>
