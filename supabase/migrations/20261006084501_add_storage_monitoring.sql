@@ -44,7 +44,7 @@ BEGIN
     0::BIGINT as used_bytes, -- Size not available, requires service role
     si.total_limit_bytes as available_bytes,
     0::NUMERIC as usage_percentage, -- Cannot calculate without size data
-    COALESCE(SUM(bu.bucket_file_count), 0::BIGINT) as total_files,
+    COALESCE(SUM(bu.bucket_file_count)::BIGINT, 0::BIGINT) as total_files,
     bu.bucket_id,
     bu.bucket_name,
     bu.public,
