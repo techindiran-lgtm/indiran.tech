@@ -143,7 +143,6 @@ export interface StorageFile {
   created_at: string;
   last_accessed_at: string;
   metadata: Record<string, unknown>;
-  size: number;
   size_bytes: number;
   owner: string;
   path: string;

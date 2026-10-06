@@ -27,14 +27,15 @@ BEGIN
   ),
   bucket_usage AS (
     SELECT 
-      bucket_id,
-      id,
-      name,
-      public,
-      COALESCE(SUM(size), 0) as bucket_size_bytes,
+      o.bucket_id,
+      b.id as bucket_db_id,
+      b.name as bucket_name,
+      b.public,
+      COALESCE(SUM(o.size_bytes), 0) as bucket_size_bytes,
       COUNT(*) as bucket_file_count
-    FROM storage.objects
-    GROUP BY bucket_id, id, name, public
+    FROM storage.objects o
+    JOIN storage.buckets b ON o.bucket_id = b.id
+    GROUP BY o.bucket_id, b.id, b.name, b.public
   )
   SELECT 
     si.total_limit_bytes as total_bytes,
@@ -67,7 +68,6 @@ RETURNS TABLE (
   name TEXT,
   bucket_id TEXT,
   bucket_name TEXT,
-  size BIGINT,
   size_bytes BIGINT,
   created_at TIMESTAMPTZ,
   last_accessed_at TIMESTAMPTZ,
@@ -84,7 +84,6 @@ BEGIN
     o.name,
     o.bucket_id,
     b.name as bucket_name,
-    o.size,
     o.size_bytes,
     o.created_at,
     o.last_accessed_at,
