@@ -101,13 +101,7 @@ export function Navbar({ settings, onNavigate, currentPage }: NavbarProps) {
                 <span className="text-xs">WhatsApp</span>
               </a>
             )}
-            <button
-              onClick={() => handleNav('admin')}
-              className="w-9 h-9 rounded-xl text-slate-500 hover:text-primary-700 hover:bg-slate-100 flex items-center justify-center transition-colors"
-              title="Admin Panel"
-            >
-              <Settings className="w-4 h-4" />
-            </button>
+            
           </div>
 
           {/* Mobile toggle */}
@@ -153,12 +147,7 @@ export function Navbar({ settings, onNavigate, currentPage }: NavbarProps) {
                   </a>
                 )}
               </div>
-              <button
-                onClick={() => handleNav('admin')}
-                className="px-4 py-3 rounded-xl text-sm font-medium text-left text-slate-500 hover:bg-slate-50 flex items-center gap-2 transition-colors"
-              >
-                <Settings className="w-4 h-4" /> Admin Panel
-              </button>
+              
             </div>
           </div>
         )}

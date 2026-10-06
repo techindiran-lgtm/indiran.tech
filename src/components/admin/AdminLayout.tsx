@@ -55,12 +55,12 @@ export function AdminLayout({
           <div className="flex items-center gap-3">
             <div className="relative">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center shadow-glow-primary">
-                <span className="text-white font-extrabold text-lg">A</span>
+                <span className="text-white font-extrabold text-lg">I</span>
               </div>
               <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-accent-500 border-2 border-slate-950" />
             </div>
             <div>
-              <p className="font-bold text-white text-sm">AAR Admin</p>
+              <p className="font-bold text-white text-sm">Indiran Tech Admin</p>
               <p className="text-xs text-slate-500">Management Panel</p>
             </div>
           </div>
@@ -138,9 +138,9 @@ export function AdminLayout({
           </button>
           <div className="flex items-center gap-2">
             <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center">
-              <span className="text-white font-bold text-xs">A</span>
+              <span className="text-white font-bold text-xs">I</span>
             </div>
-            <p className="font-semibold text-slate-800 text-sm">AAR Admin</p>
+            <p className="font-semibold text-slate-800 text-sm">Indiran Tech Admin</p>
           </div>
           <div className="w-9" />
         </header>

@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Save, Plus, Trash2, UserPlus, X } from 'lucide-react';
+import { Save, Plus, Trash2, UserPlus, X, HardDrive } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { useToast } from '@/components/shared/Toast';
 import type { Settings as SettingsType } from '@/lib/types';
+import { StorageManagement } from '@/components/admin/StorageManagement';
 
 export function AdminSettings() {
   const [settings, setSettings] = useState<SettingsType | null>(null);
@@ -12,6 +13,7 @@ export function AdminSettings() {
   const [admins, setAdmins] = useState<{ id: string; email: string; created_at: string }[]>([]);
   const [newAdminEmail, setNewAdminEmail] = useState('');
   const [showAddAdmin, setShowAddAdmin] = useState(false);
+  const [activeTab, setActiveTab] = useState<'business' | 'admins' | 'storage'>('business');
 
   useEffect(() => {
     loadData();
@@ -83,79 +85,121 @@ export function AdminSettings() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-slate-900">Settings</h1>
-        <p className="text-sm text-slate-500">Manage your business information and admin users</p>
+        <p className="text-sm text-slate-500">Manage your business information, admin users, and storage</p>
       </div>
 
-      {/* Business Settings */}
-      <div className="card p-6">
-        <h2 className="font-bold text-slate-900 mb-4">Business Information</h2>
-        <div className="grid sm:grid-cols-2 gap-4">
-          <div>
-            <label className="label">Business Name</label>
-            <input type="text" value={settings.business_name} onChange={(e) => setSettings({ ...settings, business_name: e.target.value })} className="input" />
-          </div>
-          <div>
-            <label className="label">Tamil Name</label>
-            <input type="text" value={settings.tamil_name} onChange={(e) => setSettings({ ...settings, tamil_name: e.target.value })} className="input font-tamil" />
-          </div>
-          <div className="sm:col-span-2">
-            <label className="label">Address</label>
-            <textarea value={settings.address} onChange={(e) => setSettings({ ...settings, address: e.target.value })} rows={2} className="input resize-none" />
-          </div>
-          <div>
-            <label className="label">Location</label>
-            <input type="text" value={settings.location} onChange={(e) => setSettings({ ...settings, location: e.target.value })} className="input" />
-          </div>
-          <div>
-            <label className="label">Office Hours</label>
-            <input type="text" value={settings.office_hours} onChange={(e) => setSettings({ ...settings, office_hours: e.target.value })} className="input" />
-          </div>
-          <div>
-            <label className="label">Phone</label>
-            <input type="tel" value={settings.phone} onChange={(e) => setSettings({ ...settings, phone: e.target.value })} placeholder="Phone number" className="input" />
-          </div>
-          <div>
-            <label className="label">WhatsApp</label>
-            <input type="tel" value={settings.whatsapp} onChange={(e) => setSettings({ ...settings, whatsapp: e.target.value })} placeholder="WhatsApp number" className="input" />
-          </div>
-          <div className="sm:col-span-2">
-            <label className="label">Email</label>
-            <input type="email" value={settings.email} onChange={(e) => setSettings({ ...settings, email: e.target.value })} placeholder="Email address" className="input" />
-          </div>
-          <div className="sm:col-span-2">
-            <label className="label">About</label>
-            <textarea value={settings.about} onChange={(e) => setSettings({ ...settings, about: e.target.value })} rows={4} className="input resize-none" />
-          </div>
-        </div>
-        <button onClick={save} disabled={saving} className="btn-primary mt-4">
-          {saving ? 'Saving...' : 'Save Settings'}
-          {!saving && <Save className="w-4 h-4" />}
+      {/* Tabs */}
+      <div className="flex gap-2 border-b border-slate-200">
+        <button
+          onClick={() => setActiveTab('business')}
+          className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+            activeTab === 'business'
+              ? 'border-primary-600 text-primary-600'
+              : 'border-transparent text-slate-500 hover:text-slate-700'
+          }`}
+        >
+          Business Information
+        </button>
+        <button
+          onClick={() => setActiveTab('admins')}
+          className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+            activeTab === 'admins'
+              ? 'border-primary-600 text-primary-600'
+              : 'border-transparent text-slate-500 hover:text-slate-700'
+          }`}
+        >
+          Admin Users
+        </button>
+        <button
+          onClick={() => setActiveTab('storage')}
+          className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors flex items-center gap-2 ${
+            activeTab === 'storage'
+              ? 'border-primary-600 text-primary-600'
+              : 'border-transparent text-slate-500 hover:text-slate-700'
+          }`}
+        >
+          <HardDrive className="w-4 h-4" />
+          Storage Management
         </button>
       </div>
 
-      {/* Admin Users */}
-      <div className="card p-6">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="font-bold text-slate-900">Admin Users</h2>
-          <button onClick={() => setShowAddAdmin(true)} className="btn-secondary">
-            <UserPlus className="w-4 h-4" /> Add Admin
+      {/* Business Settings Tab */}
+      {activeTab === 'business' && (
+        <div className="card p-6">
+          <h2 className="font-bold text-slate-900 mb-4">Business Information</h2>
+          <div className="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label className="label">Business Name</label>
+              <input type="text" value={settings.business_name} onChange={(e) => setSettings({ ...settings, business_name: e.target.value })} className="input" />
+            </div>
+            <div>
+              <label className="label">Tamil Name</label>
+              <input type="text" value={settings.tamil_name} onChange={(e) => setSettings({ ...settings, tamil_name: e.target.value })} className="input font-tamil" />
+            </div>
+            <div className="sm:col-span-2">
+              <label className="label">Address</label>
+              <textarea value={settings.address} onChange={(e) => setSettings({ ...settings, address: e.target.value })} rows={2} className="input resize-none" />
+            </div>
+            <div>
+              <label className="label">Location</label>
+              <input type="text" value={settings.location} onChange={(e) => setSettings({ ...settings, location: e.target.value })} className="input" />
+            </div>
+            <div>
+              <label className="label">Office Hours</label>
+              <input type="text" value={settings.office_hours} onChange={(e) => setSettings({ ...settings, office_hours: e.target.value })} className="input" />
+            </div>
+            <div>
+              <label className="label">Phone</label>
+              <input type="tel" value={settings.phone} onChange={(e) => setSettings({ ...settings, phone: e.target.value })} placeholder="Phone number" className="input" />
+            </div>
+            <div>
+              <label className="label">WhatsApp</label>
+              <input type="tel" value={settings.whatsapp} onChange={(e) => setSettings({ ...settings, whatsapp: e.target.value })} placeholder="WhatsApp number" className="input" />
+            </div>
+            <div className="sm:col-span-2">
+              <label className="label">Email</label>
+              <input type="email" value={settings.email} onChange={(e) => setSettings({ ...settings, email: e.target.value })} placeholder="Email address" className="input" />
+            </div>
+            <div className="sm:col-span-2">
+              <label className="label">About</label>
+              <textarea value={settings.about} onChange={(e) => setSettings({ ...settings, about: e.target.value })} rows={4} className="input resize-none" />
+            </div>
+          </div>
+          <button onClick={save} disabled={saving} className="btn-primary mt-4">
+            {saving ? 'Saving...' : 'Save Settings'}
+            {!saving && <Save className="w-4 h-4" />}
           </button>
         </div>
-        <div className="space-y-2">
-          {admins.map((admin) => (
-            <div key={admin.id} className="flex items-center justify-between p-3 rounded-lg bg-slate-50">
-              <div>
-                <p className="text-sm font-medium text-slate-800">{admin.email}</p>
-                <p className="text-xs text-slate-400">Added {new Date(admin.created_at).toLocaleDateString('en-IN')}</p>
+      )}
+
+      {/* Admin Users Tab */}
+      {activeTab === 'admins' && (
+        <div className="card p-6">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="font-bold text-slate-900">Admin Users</h2>
+            <button onClick={() => setShowAddAdmin(true)} className="btn-secondary">
+              <UserPlus className="w-4 h-4" /> Add Admin
+            </button>
+          </div>
+          <div className="space-y-2">
+            {admins.map((admin) => (
+              <div key={admin.id} className="flex items-center justify-between p-3 rounded-lg bg-slate-50">
+                <div>
+                  <p className="text-sm font-medium text-slate-800">{admin.email}</p>
+                  <p className="text-xs text-slate-400">Added {new Date(admin.created_at).toLocaleDateString('en-IN')}</p>
+                </div>
+                <button onClick={() => removeAdmin(admin.id)} className="p-2 rounded-lg text-slate-400 hover:bg-error-50 hover:text-error-600">
+                  <Trash2 className="w-4 h-4" />
+                </button>
               </div>
-              <button onClick={() => removeAdmin(admin.id)} className="p-2 rounded-lg text-slate-400 hover:bg-error-50 hover:text-error-600">
-                <Trash2 className="w-4 h-4" />
-              </button>
-            </div>
-          ))}
-          {admins.length === 0 && <p className="text-sm text-slate-400 text-center py-4">No admin users</p>}
+            ))}
+            {admins.length === 0 && <p className="text-sm text-slate-400 text-center py-4">No admin users</p>}
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* Storage Management Tab */}
+      {activeTab === 'storage' && <StorageManagement />}
 
       {/* Add admin modal */}
       {showAddAdmin && (

@@ -132,12 +132,9 @@ export function Footer({ settings, onNavigate }: FooterProps) {
           <p className="text-xs text-slate-500">
             © {new Date().getFullYear()} {settings?.business_name ?? 'AAR'} — {settings?.tamil_name ?? 'AAR பத்திரம் எழுதும் அலுவலகம்'}. All rights reserved.
           </p>
-          <button
-            onClick={() => onNavigate('admin')}
-            className="text-xs text-slate-600 hover:text-slate-400 transition-colors"
-          >
-            Admin Panel
-          </button>
+          <a href="tel:6374034451" className="text-xs text-slate-600 hover:text-slate-400 transition-colors">
+            Mohamed Nazir — 6374034451
+          </a>
         </div>
       </div>
     </footer>

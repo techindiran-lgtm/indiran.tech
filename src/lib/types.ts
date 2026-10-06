@@ -116,3 +116,36 @@ export interface Notification {
   is_read: boolean;
   created_at: string;
 }
+
+export interface StorageUsage {
+  total_bytes: number;
+  used_bytes: number;
+  available_bytes: number;
+  usage_percentage: number;
+  total_files: number;
+  buckets: BucketUsage[];
+}
+
+export interface BucketUsage {
+  id: string;
+  name: string;
+  public: boolean;
+  file_size: number;
+  file_count: number;
+  size_bytes: number;
+}
+
+export interface StorageFile {
+  id: string;
+  name: string;
+  bucket_id: string;
+  bucket_name: string;
+  created_at: string;
+  last_accessed_at: string;
+  metadata: Record<string, unknown>;
+  size: number;
+  size_bytes: number;
+  owner: string;
+  path: string;
+  updated_at: string;
+}

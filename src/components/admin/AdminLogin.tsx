@@ -59,7 +59,7 @@ export function AdminLogin({ onSuccess, onBack }: AdminLoginProps) {
             </div>
           </div>
           <h1 className="text-2xl font-extrabold text-white">Admin Panel</h1>
-          <p className="text-sm text-white/50 mt-1">AAR Document Office Management</p>
+          <p className="text-sm text-white/50 mt-1">Indiran Tech Document Office Management</p>
         </div>
 
         <div className="glass-dark rounded-2xl p-8 shadow-2xl">
