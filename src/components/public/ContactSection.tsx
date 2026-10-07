@@ -124,7 +124,7 @@ export function ContactSection({ settings }: ContactSectionProps) {
                 loading="lazy"
               />
               <div className="absolute top-3 left-3 px-3 py-1.5 rounded-lg bg-white/90 backdrop-blur-sm shadow-soft text-xs font-medium text-slate-700 flex items-center gap-1.5 pointer-events-none">
-                <MapPin className="w-3.5 h-3.5 text-primary-600" /> {settings?.location ?? 'பனகுடி'}
+                <MapPin className="w-3.5 h-3.5 text-primary-600" /> கங்கைகொண்டான் (Gangaikondan)
               </div>
             </div>
           </div>

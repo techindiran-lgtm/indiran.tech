@@ -193,7 +193,19 @@ export function ServiceForm({ serviceKey, onBack, onNavigate, settings }: Servic
               </div>
             </div>
           </div>
+        </div>
 
+        {/* Service Content - First */}
+        <ServiceContent serviceKey={serviceKey} />
+
+        {/* FAQ Section */}
+        <FAQSection />
+
+        {/* Trust Section */}
+        <TrustSection settings={settings} />
+
+        {/* Form - Last */}
+        <div className="card overflow-hidden animate-fade-in-up mt-8">
           <form onSubmit={handleSubmit} className="p-6 lg:p-8 space-y-6">
             {/* Customer info */}
             <div>
@@ -342,15 +354,6 @@ export function ServiceForm({ serviceKey, onBack, onNavigate, settings }: Servic
             </div>
           </form>
         </div>
-
-        {/* Service Content */}
-        <ServiceContent serviceKey={serviceKey} />
-
-        {/* FAQ Section */}
-        <FAQSection />
-
-        {/* Trust Section */}
-        <TrustSection settings={settings} />
 
         {/* Quick contact */}
         <div className="mt-6 flex flex-wrap gap-3 justify-center">

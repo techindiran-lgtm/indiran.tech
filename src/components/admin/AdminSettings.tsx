@@ -38,12 +38,11 @@ export function AdminSettings() {
         business_name: settings.business_name,
         tamil_name: settings.tamil_name,
         address: settings.address,
-        location: settings.location,
+        location: 'கங்கைகொண்டான் (Gangaikondan)',
         phone: settings.phone,
         whatsapp: settings.whatsapp,
         email: settings.email,
         office_hours: settings.office_hours,
-        about: settings.about,
       }).eq('id', settings.id);
       if (error) throw error;
       show('Settings saved successfully!');
@@ -142,7 +141,7 @@ export function AdminSettings() {
             </div>
             <div>
               <label className="label">Location</label>
-              <input type="text" value={settings.location} onChange={(e) => setSettings({ ...settings, location: e.target.value })} className="input" />
+              <input type="text" value="கங்கைகொண்டான் (Gangaikondan)" disabled className="input bg-slate-100" />
             </div>
             <div>
               <label className="label">Office Hours</label>
@@ -159,10 +158,6 @@ export function AdminSettings() {
             <div className="sm:col-span-2">
               <label className="label">Email</label>
               <input type="email" value={settings.email} onChange={(e) => setSettings({ ...settings, email: e.target.value })} placeholder="Email address" className="input" />
-            </div>
-            <div className="sm:col-span-2">
-              <label className="label">About</label>
-              <textarea value={settings.about} onChange={(e) => setSettings({ ...settings, about: e.target.value })} rows={4} className="input resize-none" />
             </div>
           </div>
           <button onClick={save} disabled={saving} className="btn-primary mt-4">

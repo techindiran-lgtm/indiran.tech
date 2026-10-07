@@ -29,13 +29,13 @@ export function AboutSection({ settings }: AboutSectionProps) {
           <div>
             <span className="section-eyebrow">About Us</span>
             <h2 className="text-3xl lg:text-5xl font-extrabold text-slate-900 mt-4 mb-5 text-balance">
-              Your Trusted Document Office in {settings?.location ?? 'Panagudi'}
+              Your Trusted Document Office in கங்கைகொண்டான் (Gangaikondan)
             </h2>
             <p className="text-slate-600 leading-relaxed mb-5 text-lg">
-              {settings?.about ?? 'AAR பத்திரம் எழுதும் அலுவலகம் is a trusted document registration office providing comprehensive services to the community. We handle document registration, marriage registration, encumbrance certificates, document copies, birth/death certificates, and patta/chitta services with professionalism and care.'}
+              IDIRAN TECH provides professional document registration and property documentation services in Tamil Nadu. Our services include property registration, sale deed, gift deed, settlement deed, encumbrance certificate (EC), patta, chitta, land records, and other document-related services. We assist customers with accurate documentation and a smooth registration process.
             </p>
             <p className="text-slate-600 leading-relaxed mb-8 font-tamil text-base">
-              பனகுடி சார்பதிவாளர் அலுவலகத்தில் உங்கள் அனைத்து ஆவணப் பணிகளும் நம்பகமான முறையில் செய்யப்படுகின்றன.
+              கங்கைகொண்டான் சார்பதிவாளர் அலுவலகத்தில் உங்கள் அனைத்து ஆவணப் பணிகளும் நம்பகமான முறையில் செய்யப்படுகின்றன.
             </p>
 
             {/* Contact info cards */}
@@ -44,7 +44,7 @@ export function AboutSection({ settings }: AboutSectionProps) {
                 <div className="w-10 h-10 rounded-lg bg-primary-100 flex items-center justify-center flex-shrink-0">
                   <MapPin className="w-5 h-5 text-primary-700" />
                 </div>
-                <span className="text-sm text-slate-700">{settings?.address}</span>
+                <span className="text-sm text-slate-700">கங்கைகொண்டான் (Gangaikondan)</span>
               </div>
               {settings?.phone && (
                 <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
