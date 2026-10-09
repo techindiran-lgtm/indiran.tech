@@ -10,8 +10,8 @@ interface SEOProps {
 }
 
 export function SEO({ 
-  title = 'Document Registration & EC Services in Gangaikondan | IDIRAN TECH',
-  description = 'IDIRAN TECH பத்திரம் எழுதும் அலுவலகம் - Document Registration, Marriage Registration, Encumbrance Certificate (EC), Document Copy, Birth/Death Certificate, Patta/Chitta services in Gangaikondan, Tamil Nadu.',
+  title = 'Document Writer & Registration Services in Tamil Nadu | IDIRAN TECH',
+  description = 'IDIRAN TECH provides document writing, property registration assistance, marriage registration, Encumbrance Certificate, document copies, birth and death certificate assistance, and Patta Chitta services in Tamil Nadu.',
   canonical = 'https://indiran-tech.vercel.app',
   ogImage = '/icon.png',
   noindex = false,
@@ -29,6 +29,10 @@ export function SEO({
         {
           name: 'description',
           content: description,
+        },
+        {
+          name: 'keywords',
+          content: 'document writer in Tamil Nadu, document writer in Tirunelveli, document registration, property registration, encumbrance certificate, marriage registration, certified document copies, birth certificate, death certificate, Patta Chitta, Gangaikondan',
         },
         {
           name: 'robots',

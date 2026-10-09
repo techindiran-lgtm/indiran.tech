@@ -1,4 +1,4 @@
-import { Phone, MessageCircle, MapPin, ChevronRight, ShieldCheck, Clock, Users, Sparkles } from 'lucide-react';
+import { Phone, MessageCircle, MapPin, ChevronRight, ShieldCheck, Clock, Users, Sparkles, Instagram } from 'lucide-react';
 import type { Settings as SettingsType } from '@/lib/types';
 import { SERVICES } from '@/lib/constants';
 import { ServiceIcon } from '@/components/shared/ServiceIcon';
@@ -90,6 +90,17 @@ export function Hero({ settings, onNavigate }: HeroProps) {
                   WhatsApp
                 </a>
               )}
+              <a
+                href="https://www.instagram.com/indiran707"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2.5 text-sm font-medium text-slate-700 hover:text-pink-600 transition-colors group"
+              >
+                <span className="w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center shadow-soft group-hover:shadow-card-hover group-hover:border-pink-300 transition-all">
+                  <Instagram className="w-4 h-4 text-pink-600" />
+                </span>
+                Instagram
+              </a>
             </div>
           </div>
 

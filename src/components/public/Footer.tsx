@@ -1,4 +1,4 @@
-import { Phone, MessageCircle, MapPin, Clock, Mail } from 'lucide-react';
+import { Phone, MessageCircle, MapPin, Clock, Mail, Instagram } from 'lucide-react';
 import type { Settings as SettingsType } from '@/lib/types';
 import { SERVICES } from '@/lib/constants';
 import { ServiceIcon } from '@/components/shared/ServiceIcon';
@@ -48,6 +48,9 @@ export function Footer({ settings, onNavigate }: FooterProps) {
                   <MessageCircle className="w-4 h-4" />
                 </a>
               )}
+              <a href="https://www.instagram.com/indiran707" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-400 hover:text-pink-400 hover:border-pink-600 transition-colors">
+                <Instagram className="w-4 h-4" />
+              </a>
               {settings?.email && (
                 <a href={`mailto:${settings.email}`} className="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-400 hover:text-primary-400 hover:border-primary-600 transition-colors">
                   <Mail className="w-4 h-4" />

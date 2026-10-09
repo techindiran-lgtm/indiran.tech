@@ -34,32 +34,32 @@ const getSEOData = (route) => {
   switch (route) {
     case '/':
       return {
-        title: 'Document Registration & EC Services in Gangaikondan | IDIRAN TECH',
-        description: 'IDIRAN TECH பத்திரம் எழுதும் அலுவலகம் - Document Registration, Marriage Registration, Encumbrance Certificate (EC), Document Copy, Birth/Death Certificate, Patta/Chitta services in Gangaikondan, Tamil Nadu.',
+        title: 'Document Writer & Registration Services in Tamil Nadu | IDIRAN TECH',
+        description: 'IDIRAN TECH provides document writing, property registration assistance, marriage registration, Encumbrance Certificate, document copies, birth and death certificate assistance, and Patta Chitta services in Tamil Nadu.',
         canonical: BASE_URL,
         ogImage: `${BASE_URL}/icon.png`,
         lang: 'en',
       };
     case '/services':
       return {
-        title: 'Document Services in Gangaikondan | IDIRAN TECH',
-        description: 'Complete document services: Registration, Marriage Registration, EC, Document Copy, Birth/Death Certificate, Patta/Chitta in Gangaikondan, Tamil Nadu.',
+        title: 'Document Services in Tamil Nadu | IDIRAN TECH',
+        description: 'Complete document services: Document Writer, Property Registration, Marriage Registration, EC, Document Copy, Birth/Death Certificate, Patta/Chitta in Tamil Nadu.',
         canonical: `${BASE_URL}/services`,
         ogImage: `${BASE_URL}/icon.png`,
         lang: 'en',
       };
     case '/about':
       return {
-        title: 'About IDIRAN TECH | Document Office Gangaikondan',
-        description: 'Learn about IDIRAN TECH, your trusted document registration office in Gangaikondan, Tamil Nadu. Professional services with years of experience.',
+        title: 'About IDIRAN TECH | Document Writer Tamil Nadu',
+        description: 'Learn about IDIRAN TECH, your trusted document writer and registration office in Tamil Nadu. Professional services with years of experience.',
         canonical: `${BASE_URL}/about`,
         ogImage: `${BASE_URL}/icon.png`,
         lang: 'en',
       };
     case '/contact':
       return {
-        title: 'Contact IDIRAN TECH | Document Office Gangaikondan',
-        description: 'Contact IDIRAN TECH document office in Gangaikondan for document registration, EC, certificates. Phone, WhatsApp, address, and office hours.',
+        title: 'Contact IDIRAN TECH | Document Writer Tamil Nadu',
+        description: 'Contact IDIRAN TECH document writer in Tamil Nadu for document registration, EC, certificates. Phone, WhatsApp, address, and office hours.',
         canonical: `${BASE_URL}/contact`,
         ogImage: `${BASE_URL}/icon.png`,
         lang: 'en',
@@ -78,16 +78,16 @@ const getSEOData = (route) => {
         const slug = route.replace('/services/', '');
         const serviceName = serviceNames[slug] || 'Document Service';
         return {
-          title: `${serviceName} in Gangaikondan | IDIRAN TECH`,
-          description: `Professional ${serviceName} services in Gangaikondan, Tamil Nadu. IDIRAN TECH provides expert assistance with ${serviceName}.`,
+          title: `${serviceName} in Tamil Nadu | IDIRAN TECH`,
+          description: `Professional ${serviceName} services in Tamil Nadu. IDIRAN TECH provides expert assistance with ${serviceName}.`,
           canonical: `${BASE_URL}/services/${slug}`,
           ogImage: `${BASE_URL}/icon.png`,
           lang: 'en',
         };
       }
       return {
-        title: 'Document Registration & EC Services in Gangaikondan | IDIRAN TECH',
-        description: 'IDIRAN TECH பத்திரம் எழுதும் அலுவலகம் - Document Registration, Marriage Registration, Encumbrance Certificate (EC), Document Copy, Birth/Death Certificate, Patta/Chitta services in Gangaikondan, Tamil Nadu.',
+        title: 'Document Writer & Registration Services in Tamil Nadu | IDIRAN TECH',
+        description: 'IDIRAN TECH provides document writing, property registration assistance, marriage registration, Encumbrance Certificate, document copies, birth and death certificate assistance, and Patta Chitta services in Tamil Nadu.',
         canonical: BASE_URL,
         ogImage: `${BASE_URL}/icon.png`,
         lang: 'en',
@@ -191,6 +191,7 @@ const generateHeadHTML = (seoData, route, applicationAssets) => {
     
     <title>${seoData.title}</title>
     <meta name="description" content="${seoData.description}" />
+    <meta name="keywords" content="document writer in Tamil Nadu, document writer in Tirunelveli, document registration, property registration, encumbrance certificate, marriage registration, certified document copies, birth certificate, death certificate, Patta Chitta, Gangaikondan" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="${seoData.canonical}" />
     
