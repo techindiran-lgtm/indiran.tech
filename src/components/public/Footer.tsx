@@ -87,11 +87,18 @@ export function Footer({ settings, onNavigate }: FooterProps) {
                 { label: 'Book Appointment', page: 'appointment' },
                 { label: 'About Us', page: 'about' },
                 { label: 'Contact', page: 'contact' },
+                { label: 'Privacy Policy', href: '/privacy-policy' },
               ].map((link) => (
-                <li key={link.page}>
-                  <button onClick={() => onNavigate(link.page)} className="text-sm text-slate-400 hover:text-primary-400 transition-colors">
-                    {link.label}
-                  </button>
+                <li key={link.label}>
+                  {link.href ? (
+                    <a href={link.href} className="text-sm text-slate-400 hover:text-primary-400 transition-colors">
+                      {link.label}
+                    </a>
+                  ) : (
+                    <button onClick={() => link.page && onNavigate(link.page)} className="text-sm text-slate-400 hover:text-primary-400 transition-colors">
+                      {link.label}
+                    </button>
+                  )}
                 </li>
               ))}
             </ul>

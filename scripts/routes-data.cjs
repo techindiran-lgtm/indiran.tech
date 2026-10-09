@@ -17,6 +17,7 @@ const PUBLIC_ROUTES = [
   '/about',
   '/contact',
   '/appointment',
+  '/privacy-policy',
 ];
 
 module.exports = { SERVICE_SLUGS, PUBLIC_ROUTES };

@@ -72,6 +72,14 @@ const getSEOData = (route) => {
         ogImage: `${BASE_URL}/icon.png`,
         lang: 'en',
       };
+    case '/privacy-policy':
+      return {
+        title: 'Privacy Policy | IDIRAN TECH',
+        description: 'Privacy Policy for IDIRAN TECH document writer services in Tamil Nadu. Learn how we collect, use, and protect your personal information.',
+        canonical: `${BASE_URL}/privacy-policy`,
+        ogImage: `${BASE_URL}/icon.png`,
+        lang: 'en',
+      };
     default:
       // Service routes
       if (route.startsWith('/services/')) {
@@ -162,6 +170,7 @@ const getRouteJsonLd = (route) => {
         '/about': 'About',
         '/contact': 'Contact',
         '/appointment': 'Appointment',
+        '/privacy-policy': 'Privacy Policy',
       };
       breadcrumbs.push({
         '@type': 'ListItem',

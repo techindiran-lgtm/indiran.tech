@@ -12,6 +12,9 @@ import { normalizeServiceSlug } from '@/lib/routes';
 const AdminLoginComponent = lazy(() => import('@/components/admin/AdminLogin').then(m => ({ default: m.AdminLogin })));
 const AdminPanelComponent = lazy(() => import('@/components/admin/AdminPanel').then(m => ({ default: m.AdminPanel })));
 
+// Lazy load privacy policy
+const PrivacyPolicyComponent = lazy(() => import('@/components/public/PrivacyPolicy').then(m => ({ default: m.PrivacyPolicy })));
+
 // Admin helper functions
 const handleLogout = async () => {
   await supabase.auth.signOut();
@@ -129,6 +132,14 @@ const router = createBrowserRouter([
   {
     path: '/appointment',
     element: <PublicSite />,
+  },
+  {
+    path: '/privacy-policy',
+    element: (
+      <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-slate-50"><div className="w-8 h-8 border-2 border-primary-600 border-t-transparent rounded-full animate-spin" /></div>}>
+        <PrivacyPolicyComponent />
+      </Suspense>
+    ),
   },
   {
     path: '/admin',
