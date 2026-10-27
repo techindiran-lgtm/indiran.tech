@@ -221,6 +221,12 @@ const generateHeadHTML = (seoData, route, applicationAssets) => {
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/icon.png" />
+
+    <!-- Connections and the hero image needed for the first viewport -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://xtlbfthzwnfqqxwzypci.supabase.co" />
+    <link rel="preload" as="image" href="/background.webp" type="image/webp" fetchpriority="high" />
     
     <!-- JSON-LD -->
     ${jsonLd.map(schema => `<script type="application/ld+json">${JSON.stringify(schema)}</script>`).join('\n    ')}

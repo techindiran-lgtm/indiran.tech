@@ -47,7 +47,14 @@ export function Navbar({ settings, onNavigate, currentPage }: NavbarProps) {
           {/* Logo */}
           <button onClick={() => handleNav('home')} className="flex items-center gap-3 group">
             <div className="relative">
-              <img src="/icon.png" alt="IDIRAN TECH Logo" className="w-11 h-11 rounded-xl shadow-glow-primary group-hover:scale-105 transition-transform duration-200 object-cover" />
+              <img
+                src="/icon.webp"
+                alt="IDIRAN TECH Logo"
+                width="44"
+                height="44"
+                decoding="async"
+                className="w-11 h-11 rounded-xl shadow-glow-primary group-hover:scale-105 transition-transform duration-200 object-cover"
+              />
               <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-accent-500 border-2 border-white" />
             </div>
             <div className="text-left">
@@ -107,6 +114,9 @@ export function Navbar({ settings, onNavigate, currentPage }: NavbarProps) {
           {/* Mobile toggle */}
           <button
             onClick={() => setOpen(!open)}
+            aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={open}
+            aria-controls="mobile-navigation"
             className="md:hidden p-2 rounded-xl text-slate-600 hover:bg-slate-100 transition-colors"
           >
             {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -115,7 +125,7 @@ export function Navbar({ settings, onNavigate, currentPage }: NavbarProps) {
 
         {/* Mobile menu */}
         {open && (
-          <div className="md:hidden pb-4 animate-slide-down">
+          <div id="mobile-navigation" className="md:hidden pb-4 animate-slide-down">
             <div className="flex flex-col gap-1 p-2 rounded-2xl bg-white/90 backdrop-blur-xl border border-slate-200/60 shadow-card">
               {navItems.map((item) => (
                 <button

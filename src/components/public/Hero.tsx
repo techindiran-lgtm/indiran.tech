@@ -15,7 +15,10 @@ export function Hero({ settings, onNavigate }: HeroProps) {
       <LocalBusinessJsonLd settings={settings} />
       <section className="relative pt-20 lg:pt-24 overflow-hidden">
         {/* Background Image - positioned on right side */}
-        <div className="absolute inset-0 lg:bg-right bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/background.png)' }} />
+        <div
+          className="absolute inset-0 lg:bg-right bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: 'image-set(url("/background.webp") type("image/webp"), url("/background.png") type("image/png"))' }}
+        />
         {/* Gradient overlay - lighter on left, darker on right */}
         <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/70 to-white/40 lg:bg-gradient-to-r lg:from-white/80 lg:via-white/50 lg:to-white/20" />
         {/* Background */}
@@ -32,7 +35,14 @@ export function Hero({ settings, onNavigate }: HeroProps) {
           <div className="animate-fade-in-up">
             {/* Logo */}
             <div className="mb-6">
-              <img src="/icon.png" alt="IDIRAN TECH Logo" className="w-20 h-20 rounded-2xl shadow-lg object-cover" />
+              <img
+                src="/icon.webp"
+                alt="IDIRAN TECH Logo"
+                width="80"
+                height="80"
+                decoding="async"
+                className="w-20 h-20 rounded-2xl shadow-lg object-cover"
+              />
             </div>
 
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 backdrop-blur-sm border border-primary-100 text-primary-700 text-xs font-semibold mb-6 shadow-soft">

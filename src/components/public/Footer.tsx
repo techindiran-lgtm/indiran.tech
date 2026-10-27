@@ -39,20 +39,20 @@ export function Footer({ settings, onNavigate }: FooterProps) {
             {/* Social/contact pills */}
             <div className="flex gap-2">
               {settings?.phone && (
-                <a href={`tel:${settings.phone}`} className="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-400 hover:text-primary-400 hover:border-primary-600 transition-colors">
+                <a aria-label="Call us" href={`tel:${settings.phone}`} className="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-400 hover:text-primary-400 hover:border-primary-600 transition-colors">
                   <Phone className="w-4 h-4" />
                 </a>
               )}
               {settings?.whatsapp && (
-                <a href={`https://wa.me/${settings.whatsapp.replace(/[^0-9]/g, '')}`} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-400 hover:text-accent-400 hover:border-accent-600 transition-colors">
+                <a aria-label="Chat with us on WhatsApp" href={`https://wa.me/${settings.whatsapp.replace(/[^0-9]/g, '')}`} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-400 hover:text-accent-400 hover:border-accent-600 transition-colors">
                   <MessageCircle className="w-4 h-4" />
                 </a>
               )}
-              <a href="https://www.instagram.com/indiran707" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-400 hover:text-pink-400 hover:border-pink-600 transition-colors">
+              <a aria-label="Follow us on Instagram" href="https://www.instagram.com/indiran707" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-400 hover:text-pink-400 hover:border-pink-600 transition-colors">
                 <Instagram className="w-4 h-4" />
               </a>
               {settings?.email && (
-                <a href={`mailto:${settings.email}`} className="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-400 hover:text-primary-400 hover:border-primary-600 transition-colors">
+                <a aria-label="Email us" href={`mailto:${settings.email}`} className="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-400 hover:text-primary-400 hover:border-primary-600 transition-colors">
                   <Mail className="w-4 h-4" />
                 </a>
               )}
